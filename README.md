@@ -113,6 +113,8 @@ La aplicación queda disponible en `http://localhost:4200`.
 
 > El frontend consume la API del backend en `http://localhost:8080`. Asegúrate de que el backend esté corriendo antes de iniciar el frontend.
 
+- [Live Demo](https://deveps.ddns.net/notes)
+
 ---
 
 ## 👨‍💻 Autor
