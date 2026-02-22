@@ -1,0 +1,20 @@
+<app-header></app-header>
+@let carga='Cargando... 💾';
+<section id="notes-page">
+    <h2>Notes</h2>
+    @if (hasError) {
+    <h2 class="error">No se han podido cargar las notas</h2>
+    }@else if (isLoading) {
+    <h2>{{ carga }}</h2>
+    }
+    @else {
+    <ul class="note-list bg">
+        <li><app-create-note></app-create-note></li>
+        @for (note of noteService.notes; track note.id) {
+        <li>
+            <app-note-card [note]="note"></app-note-card>
+        </li>
+        }
+    </ul>
+    }
+</section>

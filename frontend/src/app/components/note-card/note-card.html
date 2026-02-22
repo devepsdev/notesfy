@@ -1,0 +1,5 @@
+<article class="note-card">
+    <input type="text" class="card-title" [value]="note()?.title" (input)="updateTitle(note()?.id, $event)">
+    <input type="button" (click)="deleteNote(note()?.id)" value="🗑">
+    <input type="checkbox" [checked]="note()?.marked" (change)="updateMarked(note()?.id, $event)">
+</article>

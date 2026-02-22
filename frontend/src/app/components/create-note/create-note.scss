@@ -1,0 +1,89 @@
+.note-form {
+  width: 400px;
+  max-width: 100%;
+  background-color: lightgreen;
+  border: 3px solid darkblue;
+  padding: 20px 30px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s;
+  box-sizing: border-box;
+
+  .note-title {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+    font-weight: bold;
+    flex: 1;
+    outline: none;
+  }
+
+  .create-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1.5rem;
+    background-color: green;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .create-btn:hover {
+    background-color: darkgreen;
+  }
+  .create-btn:active {
+    background-color: green;
+  }
+}
+.note-form:hover {
+  border: 3px solid black;
+  box-shadow: 0 0 10px;
+}
+
+/* ===== MEDIA QUERIES PARA RESPONSIVE ===== */
+
+/* Tablets y pantallas medianas (hasta 768px) */
+@media (max-width: 768px) {
+  .note-form {
+    width: 100%;
+    padding: 15px 20px;
+
+    .note-title {
+      font-size: 1.1rem;
+    }
+
+    .create-btn {
+      width: 28px;
+      height: 28px;
+      font-size: 1.3rem;
+    }
+  }
+}
+
+/* Móviles (hasta 576px) */
+@media (max-width: 576px) {
+  .note-form {
+    width: 100%;
+    padding: 12px 15px;
+    border-width: 2px;
+
+    .note-title {
+      font-size: 1rem;
+    }
+
+    .create-btn {
+      width: 26px;
+      height: 26px;
+      font-size: 1.2rem;
+    }
+  }
+
+  .note-form:hover {
+    border-width: 2px;
+  }
+}

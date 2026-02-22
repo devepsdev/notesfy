@@ -1,0 +1,124 @@
+/* Estilos personalizados para el home */
+
+/* Títulos */
+h1 {
+  font-weight: 700;
+  color: white;
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-weight: 600;
+  color: white;
+}
+
+/* Párrafos */
+p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: white;
+}
+
+/* Secciones */
+section {
+  margin-bottom: 3rem;
+  color: white;
+}
+
+/* Contenedor de la demostración */
+.demo-container {
+  max-width: 800px;
+  width: 100%;
+}
+
+/* Imagen del gif */
+.demo-image {
+  border: 3px solid #e0e0e0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  height: auto;
+
+  // Solo aplicar hover en dispositivos que no sean táctiles
+  @media (hover: hover) {
+    &:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+/* Listado de tecnologías */
+ul li {
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== MEDIA QUERIES PARA RESPONSIVE ===== */
+
+/* Tablets y pantallas medianas (hasta 768px) */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  ul li {
+    font-size: 0.95rem;
+  }
+
+  section {
+    margin-bottom: 2rem;
+  }
+
+  .demo-image {
+    border-width: 2px;
+  }
+}
+
+/* Móviles (hasta 576px) */
+@media (max-width: 576px) {
+  h1 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem !important;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .lead {
+    font-size: 1.1rem !important;
+  }
+
+  ul li {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+
+  section {
+    margin-bottom: 1.5rem;
+  }
+
+  .demo-image {
+    border-width: 2px;
+    border-radius: 0.5rem !important;
+  }
+
+  // Ajustar padding del container en móviles
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

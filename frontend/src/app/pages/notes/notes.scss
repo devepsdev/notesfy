@@ -1,0 +1,66 @@
+#notes-page {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .error {
+    color: red;
+  }
+
+  .note-list {
+    width: 70%;
+    min-width: 450px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+/* ===== MEDIA QUERIES PARA RESPONSIVE ===== */
+
+/* Tablets y pantallas medianas (hasta 768px) */
+@media (max-width: 768px) {
+  #notes-page {
+    padding: 30px 20px;
+
+    h2 {
+      font-size: 1.75rem;
+    }
+
+    .note-list {
+      width: 90%;
+      min-width: auto;
+      padding: 20px;
+      gap: 15px;
+    }
+  }
+}
+
+/* Móviles (hasta 576px) */
+@media (max-width: 576px) {
+  #notes-page {
+    padding: 20px 15px;
+
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .note-list {
+      width: 100%;
+      min-width: auto;
+      padding: 15px 10px;
+      gap: 12px;
+    }
+  }
+}
