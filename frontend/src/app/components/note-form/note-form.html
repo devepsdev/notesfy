@@ -1,0 +1,51 @@
+<form [formGroup]="form" (ngSubmit)="handleSubmit()" class="note-form-panel bg p-3 mb-3">
+  <p class="note-form-title">Nueva nota</p>
+
+  <div class="row g-2 mb-2">
+    <div class="col-12" [class.col-md-7]="categories.length > 0">
+      <input type="text" class="form-control" placeholder="Título *" formControlName="title"
+             [class.is-invalid]="title.invalid && title.touched">
+      @if (title.invalid && title.touched) {
+        @if (title.errors?.['required']) {
+          <div class="invalid-feedback">El título es obligatorio</div>
+        } @else if (title.errors?.['maxlength']) {
+          <div class="invalid-feedback">Máximo 100 caracteres</div>
+        }
+      }
+    </div>
+
+    @if (categories.length > 0) {
+      <div class="col-12 col-md-5">
+        <select class="form-select" formControlName="categoryId">
+          <option [ngValue]="null">Sin categoría</option>
+          @for (cat of categories; track cat.id) {
+            <option [ngValue]="cat.id">{{ cat.name }}</option>
+          }
+        </select>
+      </div>
+    }
+  </div>
+
+  <div class="mb-2">
+    <textarea class="form-control" placeholder="Contenido *" formControlName="content"
+              rows="2" [class.is-invalid]="content.invalid && content.touched"></textarea>
+    @if (content.invalid && content.touched) {
+      @if (content.errors?.['required']) {
+        <div class="invalid-feedback">El contenido es obligatorio</div>
+      } @else if (content.errors?.['maxlength']) {
+        <div class="invalid-feedback">Máximo 5000 caracteres</div>
+      }
+    }
+  </div>
+
+  <div class="d-flex align-items-center gap-3 mt-2">
+    <label class="note-form-check">
+      <input type="checkbox" class="form-check-input" formControlName="marked">
+      <span>Completada</span>
+    </label>
+    <button type="submit" class="btn btn-primary btn-sm ms-auto px-4"
+            [disabled]="form.invalid || isLoading">
+      {{ isLoading ? 'Guardando...' : '+ Añadir' }}
+    </button>
+  </div>
+</form>

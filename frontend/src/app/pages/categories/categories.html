@@ -1,0 +1,82 @@
+<app-header></app-header>
+
+<div class="container py-4 categories-page">
+
+  <!-- Page header -->
+  <div class="page-header mb-4">
+    <h2 class="page-title">Categorías</h2>
+    @if (categories.length > 0) {
+      <span class="count-badge">{{ categories.length }}</span>
+    }
+  </div>
+
+  <!-- Form -->
+  <div class="bg p-4 mb-4 cat-form-panel">
+    <p class="form-section-label">{{ editingId ? 'Editar categoría' : 'Nueva categoría' }}</p>
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+      <div class="row g-3 align-items-end">
+        <div class="col-12 col-sm">
+          <input type="text" class="form-control" placeholder="Nombre de la categoría *"
+                 formControlName="name" [class.is-invalid]="name.invalid && name.touched">
+          @if (name.invalid && name.touched) {
+            <div class="invalid-feedback">El nombre es obligatorio</div>
+          }
+        </div>
+
+        <div class="col-auto">
+          <div class="color-picker-wrap">
+            <label class="color-label">Color</label>
+            <input type="color" class="color-input" formControlName="color">
+          </div>
+        </div>
+
+        <div class="col-auto">
+          <span class="cat-preview-badge" [style.background-color]="color.value">
+            {{ name.value || 'Vista previa' }}
+          </span>
+        </div>
+
+        <div class="col-12 col-sm-auto d-flex gap-2">
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+            {{ editingId ? 'Guardar' : 'Crear' }}
+          </button>
+          @if (editingId) {
+            <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancelar</button>
+          }
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Category list -->
+  @if (categories.length === 0) {
+    <div class="empty-cats">
+      <span>🏷️</span>
+      <p>No tienes categorías aún. ¡Crea la primera para organizar tus notas!</p>
+    </div>
+  } @else {
+    <div class="cat-list">
+      @for (cat of categories; track cat.id) {
+        <div class="cat-item bg">
+          <div class="cat-color-dot" [style.background-color]="cat.color"></div>
+          <span class="cat-name">{{ cat.name }}</span>
+          <span class="cat-badge" [style.background-color]="cat.color">{{ cat.name }}</span>
+          <div class="cat-actions ms-auto">
+            <button class="cat-btn edit" (click)="startEdit(cat)" title="Editar">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+            </button>
+            <button class="cat-btn delete" (click)="deleteCategory(cat.id)" title="Eliminar">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+</div>

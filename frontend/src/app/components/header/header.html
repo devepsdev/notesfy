@@ -1,9 +1,21 @@
-<header class="header bg">
-    <h1>Notes Pages</h1>
-    <nav>
-        <ul class="nav-list">
-            <li><a routerLink="/" class="link">Home</a></li>
-            <li><a routerLink="/notes" class="link">Notes</a></li>
-        </ul>
+<header class="app-header">
+  <div class="header-inner">
+    <a routerLink="/" class="brand">
+      <span class="brand-icon">📝</span>
+      <span class="brand-name">Notesfy</span>
+    </a>
+
+    <nav class="nav-links">
+      @if (authService.isAuthenticated()) {
+        <a routerLink="/notes" routerLinkActive="active" class="nav-link">Notas</a>
+        <a routerLink="/categories" routerLinkActive="active" class="nav-link">Categorías</a>
+        <div class="nav-divider"></div>
+        <span class="nav-user">{{ authService.getCurrentUser()?.username }}</span>
+        <button class="btn-logout" (click)="logout()">Salir</button>
+      } @else {
+        <a routerLink="/login" routerLinkActive="active" class="nav-link">Iniciar sesión</a>
+        <a routerLink="/register" class="btn-register">Registrarse</a>
+      }
     </nav>
+  </div>
 </header>

@@ -1,5 +1,31 @@
-<article class="note-card">
-    <input type="text" class="card-title" [value]="note()?.title" (input)="updateTitle(note()?.id, $event)">
-    <input type="button" (click)="deleteNote(note()?.id)" value="🗑">
-    <input type="checkbox" [checked]="note()?.marked" (change)="updateMarked(note()?.id, $event)">
+<article class="note-card" [class.is-marked]="note()?.marked">
+  <div class="note-card-body">
+    @if (note()?.categoryName) {
+      <span class="note-category-badge"
+            [style.background-color]="note()?.categoryColor">
+        {{ note()?.categoryName }}
+      </span>
+    }
+    <p class="note-title">{{ note()?.title }}</p>
+    @if (note()?.content) {
+      <p class="note-content">{{ note()?.content | slice:0:160 }}{{ (note()?.content?.length ?? 0) > 160 ? '…' : '' }}</p>
+    }
+  </div>
+
+  <div class="note-card-footer">
+    @if (note()?.updatedAt) {
+      <span class="note-date">{{ note()?.updatedAt | slice:0:10 }}</span>
+    }
+    <div class="note-actions">
+      <label class="mark-check" title="Completada">
+        <input type="checkbox" class="form-check-input mt-0" [checked]="note()?.marked"
+               (change)="toggleMarked(note()?.id, $event)">
+      </label>
+      <button class="delete-btn" (click)="deleteNote(note()?.id)" title="Eliminar">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/>
+        </svg>
+      </button>
+    </div>
+  </div>
 </article>

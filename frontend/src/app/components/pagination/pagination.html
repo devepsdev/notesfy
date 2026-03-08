@@ -1,0 +1,21 @@
+@if (totalPages > 1) {
+  <nav>
+    <ul class="pagination justify-content-center mb-0">
+      <li class="page-item" [class.disabled]="currentPage === 0">
+        <button class="page-link" (click)="prev()">‹</button>
+      </li>
+      @for (page of pages; track $index) {
+        @if (page === '...') {
+          <li class="page-item disabled"><span class="page-link">…</span></li>
+        } @else {
+          <li class="page-item" [class.active]="page === currentPage">
+            <button class="page-link" (click)="goTo(page)">{{ page + 1 }}</button>
+          </li>
+        }
+      }
+      <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+        <button class="page-link" (click)="next()">›</button>
+      </li>
+    </ul>
+  </nav>
+}

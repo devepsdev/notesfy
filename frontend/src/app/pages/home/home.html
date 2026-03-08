@@ -1,48 +1,143 @@
 <app-header></app-header>
-<div class="container py-5">
-    <!-- Título principal -->
-    <h1 class="text-center mb-5">
-        Proyecto CRUD de Notas
+
+<!-- Hero -->
+<section class="hero-section">
+  <div class="container hero-inner">
+    <div class="hero-badge">Proyecto Portfolio · Fullstack</div>
+    <h1 class="hero-title">
+      Gestión de notas<br>
+      <span class="accent-text">con seguridad JWT</span>
     </h1>
+    <p class="hero-subtitle">
+      Autenticación JWT, categorías con color, búsqueda avanzada con filtros
+      y paginación server-side — construido con Spring Boot 3.5 y Angular 20.
+    </p>
+    <div class="hero-actions">
+      <a routerLink="/register" class="btn-hero-primary">Crear cuenta</a>
+      <a routerLink="/login" class="btn-hero-secondary">Iniciar sesión</a>
+    </div>
+  </div>
+</section>
 
-    <!-- Descripción general -->
-    <section class="mb-5">
-        <p class="lead">
-            Esta aplicación es un sistema <strong>CRUD (Crear, Leer, Actualizar y Borrar)</strong> de notas
-            desarrollado con un backend en <strong>Spring Boot</strong> utilizando
-            <strong>JPA, MySQL, Lombok y Validation</strong>.
-            El frontend está implementado en <strong>Angular</strong> con <strong>TypeScript</strong> y
-            <strong>Angular Router</strong> para la navegación.
-        </p>
-    </section>
+<div class="container pb-5">
 
-    <!-- Tecnologías -->
-    <section class="mb-5">
-        <h2 class="h4 mb-3">Tecnologías utilizadas</h2>
-        <ul class="list-unstyled">
-            <li>🔹 <strong>Backend:</strong> Spring Boot, JPA, MySQL, Lombok, Validation</li>
-            <li>🔹 <strong>Frontend:</strong> Angular, TypeScript, Angular Router</li>
-            <li>🔹 <strong>Comunicación:</strong> API REST</li>
-        </ul>
-    </section>
+  <!-- Features -->
+  <div class="section-label text-center mb-2">Características</div>
+  <h2 class="section-title text-center mb-5">Todo lo que incluye</h2>
 
-    <!-- Gif demostración -->
-    <section class="mb-5 text-center">
-        <h2 class="h4 mb-3">Demostración en vivo</h2>
-        <p class="text-secondary mb-4">
-            A continuación puedes ver un ejemplo de cómo funciona la aplicación:
-        </p>
-        <div class="demo-container mx-auto">
-            <!-- Aquí va tu gif animado -->
-            <img src="Animation.gif" alt="Demostración CRUD Notas" class="img-fluid rounded shadow demo-image" />
+  <div class="row g-4 mb-5">
+    <div class="col-sm-6 col-lg-3">
+      <div class="feature-card">
+        <div class="feature-icon-wrap">🔐</div>
+        <h5>JWT Auth</h5>
+        <p>Tokens firmados con HS256. Interceptor HTTP automático y guard funcional en rutas privadas.</p>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="feature-card">
+        <div class="feature-icon-wrap">🏷️</div>
+        <h5>Categorías</h5>
+        <p>Organiza notas con etiquetas de color personalizado. Badge visible en cada tarjeta de nota.</p>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="feature-card">
+        <div class="feature-icon-wrap">🔍</div>
+        <h5>Búsqueda avanzada</h5>
+        <p>Filtra por texto, categoría y fechas con debounce de 300 ms. JPA Specifications en backend.</p>
+      </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+      <div class="feature-card">
+        <div class="feature-icon-wrap">📄</div>
+        <h5>Paginación</h5>
+        <p>Paginación server-side con Spring Data Page&lt;T&gt;. Orden por fecha de edición, creación o título.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tech Stack -->
+  <div class="bg p-4 p-md-5 mb-5">
+    <h3 class="section-title mb-4">Stack tecnológico</h3>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="tech-group-label">Backend · Java / Spring</div>
+        <div class="tech-pills">
+          <span class="tech-pill backend">Spring Boot 3.5</span>
+          <span class="tech-pill backend">Spring Security</span>
+          <span class="tech-pill backend">JWT · jjwt 0.11</span>
+          <span class="tech-pill backend">JPA / Hibernate</span>
+          <span class="tech-pill backend">MySQL</span>
+          <span class="tech-pill backend">JPA Specifications</span>
+          <span class="tech-pill backend">Lombok</span>
+          <span class="tech-pill backend">Maven</span>
         </div>
-    </section>
+      </div>
+      <div class="col-md-6">
+        <div class="tech-group-label">Frontend · TypeScript / Angular</div>
+        <div class="tech-pills">
+          <span class="tech-pill frontend">Angular 20</span>
+          <span class="tech-pill frontend">TypeScript</span>
+          <span class="tech-pill frontend">ReactiveFormsModule</span>
+          <span class="tech-pill frontend">RxJS · debounce</span>
+          <span class="tech-pill frontend">Signal Inputs</span>
+          <span class="tech-pill frontend">Bootstrap 5</span>
+          <span class="tech-pill frontend">Lazy Loading</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <!-- Conclusión -->
-    <section class="text-center">
-        <p class="text-secondary">
-            Este proyecto demuestra cómo integrar un backend robusto con un frontend moderno
-            para construir aplicaciones web completas.
-        </p>
-    </section>
+  <!-- Architecture -->
+  <div class="section-label text-center mb-2">Arquitectura</div>
+  <h2 class="section-title text-center mb-4">Decisiones técnicas</h2>
+
+  <div class="row g-4 mb-5">
+    <div class="col-md-4">
+      <div class="arch-card">
+        <span class="arch-icon">🛡️</span>
+        <h6>Seguridad</h6>
+        <ul>
+          <li>BCrypt para contraseñas</li>
+          <li>Rutas protegidas con guard</li>
+          <li>Datos aislados por usuario</li>
+          <li>Variables sensibles en .env</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="arch-card">
+        <span class="arch-icon">⚡</span>
+        <h6>Reactividad</h6>
+        <ul>
+          <li>Signal inputs en componentes</li>
+          <li>Control flow moderno (&#64;if, &#64;for)</li>
+          <li>Debounce automático en búsqueda</li>
+          <li>Interceptor HTTP funcional</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="arch-card">
+        <span class="arch-icon">🏗️</span>
+        <h6>Arquitectura</h6>
+        <ul>
+          <li>API REST bien estructurada</li>
+          <li>Capa servicio + repositorio</li>
+          <li>DTOs de entrada y salida</li>
+          <li>Componentes standalone</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section text-center">
+    <p class="cta-text">¿Quieres ver el código fuente?</p>
+    <a href="https://github.com/devepsdev/notesfy" target="_blank" rel="noopener"
+       class="btn btn-outline-light px-4 py-2">
+      Ver en GitHub →
+    </a>
+  </div>
+
 </div>

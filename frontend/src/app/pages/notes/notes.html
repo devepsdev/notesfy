@@ -1,20 +1,88 @@
 <app-header></app-header>
-@let carga='Cargando... 💾';
-<section id="notes-page">
-    <h2>Notes</h2>
-    @if (hasError) {
-    <h2 class="error">No se han podido cargar las notas</h2>
-    }@else if (isLoading) {
-    <h2>{{ carga }}</h2>
+
+<div class="notes-page container py-4">
+
+  <!-- Page header -->
+  <div class="page-header mb-4">
+    <h2 class="page-title">Mis notas</h2>
+    @if (!isLoading && !hasError) {
+      <span class="notes-count">{{ notes.length }} resultado{{ notes.length !== 1 ? 's' : '' }}</span>
     }
-    @else {
-    <ul class="note-list bg">
-        <li><app-create-note></app-create-note></li>
-        @for (note of noteService.notes; track note.id) {
-        <li>
-            <app-note-card [note]="note"></app-note-card>
-        </li>
-        }
-    </ul>
-    }
-</section>
+  </div>
+
+  <!-- New note form -->
+  <app-note-form (noteCreated)="onNoteCreated()"></app-note-form>
+
+  <!-- Filters -->
+  <div class="bg p-3 mb-3 filters-panel" [formGroup]="filters">
+    <div class="row g-2">
+      <div class="col-12 col-md-4">
+        <input type="text" class="form-control" placeholder="🔍 Buscar por título o contenido..."
+               formControlName="searchText">
+      </div>
+      <div class="col-6 col-md-2">
+        <select class="form-select" formControlName="categoryId">
+          <option [ngValue]="null">Todas las categorías</option>
+          @for (cat of categories; track cat.id) {
+            <option [ngValue]="cat.id">{{ cat.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="col-6 col-md-2">
+        <input type="date" class="form-control" formControlName="dateFrom" title="Desde">
+      </div>
+      <div class="col-6 col-md-2">
+        <input type="date" class="form-control" formControlName="dateTo" title="Hasta">
+      </div>
+      <div class="col-4 col-md-1">
+        <select class="form-select" formControlName="sortBy" title="Ordenar por">
+          <option value="updatedAt">Editada</option>
+          <option value="createdAt">Creada</option>
+          <option value="title">Título</option>
+        </select>
+      </div>
+      <div class="col-2 col-md-1">
+        <select class="form-select" formControlName="sortDir" title="Dirección">
+          <option value="desc">↓</option>
+          <option value="asc">↑</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- States -->
+  @if (hasError) {
+    <div class="empty-state">
+      <span class="empty-icon">⚠️</span>
+      <p>No se han podido cargar las notas. Verifica que el servidor esté activo.</p>
+    </div>
+  } @else if (isLoading) {
+    <div class="empty-state">
+      <span class="empty-icon">⟳</span>
+      <p>Cargando notas...</p>
+    </div>
+  } @else if (notes.length === 0) {
+    <div class="empty-state">
+      <span class="empty-icon">📭</span>
+      <p>No hay notas que mostrar. ¡Crea la primera!</p>
+    </div>
+  } @else {
+    <div class="row g-3">
+      @for (note of notes; track note.id) {
+        <div class="col-12 col-sm-6 col-lg-4">
+          <app-note-card [note]="note"
+                         (noteDeleted)="onNoteDeleted()"
+                         (noteUpdated)="onNoteUpdated()">
+          </app-note-card>
+        </div>
+      }
+    </div>
+
+    <div class="mt-4">
+      <app-pagination [totalPages]="totalPages" [currentPage]="currentPage"
+                      (pageChange)="onPageChange($event)">
+      </app-pagination>
+    </div>
+  }
+
+</div>

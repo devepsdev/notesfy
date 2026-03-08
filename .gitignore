@@ -1,77 +1,94 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+# ============================================================
+# BACKEND (Spring Boot / Maven)
+# ============================================================
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Compiled output
+backend/target/
+!backend/**/src/main/**/target/
+!backend/**/src/test/**/target/
+
+# Maven wrapper jar (se descarga automáticamente)
+.mvn/wrapper/maven-wrapper.jar
+
+# Spring Boot helper
+HELP.md
+
+# Variables de entorno (nunca subir al repo)
+backend/.env
+
+# ============================================================
+# FRONTEND (Angular / Node)
+# ============================================================
+
+# Compiled output
+frontend/dist/
+frontend/tmp/
+frontend/out-tsc/
+frontend/bazel-out/
+
+# Angular cache
+frontend/.angular/
+
+# Test coverage
+frontend/coverage/
+
+# Angular dev server
+frontend/connect.lock
+frontend/libpeerconnection.log
+frontend/testem.log
+frontend/typings/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.sass-cache/
+
+# ============================================================
+# EDITORES E IDEs
+# ============================================================
+
+### VS Code ###
+.vscode/
+.history/
 
 ### IntelliJ IDEA ###
-.idea
+.idea/
 *.iws
 *.iml
 *.ipr
 
+### STS (Spring Tools Suite) ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
-/dist/
 /nbdist/
 /.nb-gradle/
 build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
-.vscode/
-
-
-# Compiled output
-/dist
-/tmp
-/out-tsc
-/bazel-out
-
-# Node
-node_modules
-npm-debug.log
-yarn-error.log
-.angular
-
-# IDEs and editors
-.idea/
-.project
-.classpath
-.c9/
-*.launch
-.settings/
 *.sublime-workspace
+*.launch
+.c9/
 
-# Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-.history/*
+# ============================================================
+# SISTEMA
+# ============================================================
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-
-# System files
 .DS_Store
 Thumbs.db
+
+# ============================================================
+# CLAUDE CODE
+# ============================================================
+
+.claude/

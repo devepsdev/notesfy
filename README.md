@@ -1,6 +1,6 @@
 # Notesfy
 
-Aplicación web fullstack para la gestión de notas con operaciones CRUD completas. Desarrollada con **Spring Boot** en el backend y **Angular** en el frontend.
+Aplicación web fullstack para la gestión de notas. Desarrollada con **Spring Boot** en el backend y **Angular** en el frontend, con autenticación JWT, gestión de categorías, búsqueda con filtros combinados y paginación.
 
 ---
 
@@ -10,53 +10,117 @@ Aplicación web fullstack para la gestión de notas con operaciones CRUD complet
 | --- | --- |
 | Backend | Spring Boot 3.5, Java 21, Maven |
 | Base de datos | MySQL 8, Hibernate / JPA |
+| Seguridad | Spring Security, JWT (jjwt 0.11.5), BCrypt |
 | Frontend | Angular 20, TypeScript |
 | Estilos | Bootstrap 5, SCSS |
 | Utilidades | Lombok, RxJS, Spring Validation |
 
 ---
 
+## Características
+
+### Autenticación JWT
+
+- Registro e inicio de sesión con token JWT almacenado en `localStorage`
+- Interceptor HTTP funcional que inyecta el header `Authorization: Bearer <token>` en cada petición
+- Guard funcional que protege las rutas privadas y redirige a `/login` si el token ha expirado
+- Contraseñas hasheadas con BCrypt
+
+### Gestión de notas
+
+- CRUD completo: crear, leer, actualizar y eliminar notas
+- Cada nota incluye título, contenido, estado de completada y categoría opcional
+- Las notas son privadas por usuario (filtradas en base de datos)
+- Confirmación antes de eliminar
+
+### Categorías
+
+- CRUD completo de categorías con nombre y color personalizado (color picker)
+- Las categorías se muestran como badges de color en el listado de notas
+
+### Búsqueda y filtros
+
+- Búsqueda por texto en título y contenido con debounce de 300 ms (RxJS)
+- Filtro por categoría y rango de fechas
+- Todos los filtros son opcionales y combinables (Spring Data JPA Specifications)
+
+### Paginación y ordenación
+
+- Paginación del lado del servidor con `Page<T>` de Spring Data
+- Componente `PaginationComponent` reutilizable con ellipsis
+- Ordenación por fecha de modificación, creación o título (asc/desc)
+
+### Formularios reactivos
+
+- Todos los formularios usan `ReactiveFormsModule` (FormGroup, FormControl, Validators)
+- Mensajes de error inline debajo de cada campo cuando es inválido y tocado
+- Botón de submit deshabilitado mientras el formulario es inválido
+
+---
+
 ## Estructura del proyecto
 
-```Estructura
+```text
 Notesfy/
 ├── backend/                          # API REST con Spring Boot
 │   └── src/main/java/net/ddns/deveps/notes/
-│       ├── controllers/              # Controladores REST
-│       ├── dto/                      # Data Transfer Objects
-│       ├── entities/                 # Entidades JPA
-│       ├── repositories/             # Repositorios JPA
-│       └── services/                 # Lógica de negocio
+│       ├── controllers/              # AuthController, NoteController, CategoryController
+│       ├── dto/                      # DTOs de request y response
+│       ├── entities/                 # Note, User, UserRole, Category
+│       ├── repositories/             # Repositorios JPA + NoteSpecification
+│       ├── security/                 # JwtUtil, JwtAuthenticationFilter, SecurityConfig
+│       └── services/                 # Lógica de negocio (interfaces + implementaciones)
 │
-└── frontend/                         # SPA con Angular
+└── frontend/                         # SPA con Angular 20 (standalone components)
     └── src/app/
-        ├── components/               # Componentes reutilizables
-        ├── pages/                    # Páginas (Home, Listado, Crear, Editar)
-        ├── services/                 # Servicios para consumir la API
-        └── models/                   # Interfaces y DTOs
+        ├── components/               # Header, NoteCard, NoteForm, Pagination
+        ├── guards/                   # authGuard (funcional)
+        ├── interceptors/             # authInterceptor (funcional)
+        ├── models/                   # Note, User, AuthResponse, Category, PageResponse<T>
+        ├── pages/                    # Home, Login, Register, Notes, Categories
+        └── services/                 # AuthService, NoteService, CategoryService
 ```
 
 ---
 
 ## Endpoints de la API
 
+### Autenticación (público)
+
 | Método | Ruta | Descripción |
 | --- | --- | --- |
-| `GET` | `/api/notes` | Listar todas las notas |
+| `POST` | `/api/auth/register` | Registrar un nuevo usuario |
+| `POST` | `/api/auth/login` | Iniciar sesión, devuelve JWT |
+
+### Notas (requiere JWT)
+
+| Método | Ruta | Descripción |
+| --- | --- | --- |
+| `GET` | `/api/notes` | Listar notas del usuario (paginado) |
+| `GET` | `/api/notes/search` | Buscar con filtros combinados (paginado) |
 | `GET` | `/api/notes/{id}` | Obtener una nota por ID |
 | `POST` | `/api/notes` | Crear una nueva nota |
 | `PUT` | `/api/notes/{id}` | Actualizar una nota existente |
 | `DELETE` | `/api/notes/{id}` | Eliminar una nota |
 
+### Categorías (requiere JWT)
+
+| Método | Ruta | Descripción |
+| --- | --- | --- |
+| `GET` | `/api/categories` | Listar categorías del usuario |
+| `POST` | `/api/categories` | Crear una nueva categoría |
+| `PUT` | `/api/categories/{id}` | Actualizar una categoría |
+| `DELETE` | `/api/categories/{id}` | Eliminar una categoría |
+
 ---
 
 ## Páginas del frontend
 
-- **Home** — Presentación del proyecto con demo.
-- **Listado de notas** — Muestra todas las notas registradas.
-- **Crear nota** — Formulario para añadir una nueva nota.
-- **Editar nota** — Formulario para actualizar una nota existente.
-- **Eliminar nota** — Confirmación y borrado de notas.
+- **Home** — Presentación del proyecto.
+- **Login** — Formulario reactivo de inicio de sesión.
+- **Register** — Formulario reactivo de registro.
+- **Notas** — Listado con búsqueda, filtros, paginación y formulario de creación.
+- **Categorías** — Gestión de categorías con color picker.
 
 ---
 
@@ -66,7 +130,6 @@ Notesfy/
 - Maven
 - MySQL 8 en ejecución
 - Node.js 22 (LTS)
-- Angular CLI 18+
 
 ---
 
@@ -74,46 +137,49 @@ Notesfy/
 
 ### 1. Base de datos
 
-Crea la base de datos en MySQL:
-
 ```sql
 CREATE DATABASE notes_db;
 ```
 
 ### 2. Backend
 
-Configura las credenciales en [backend/src/main/resources/application.properties](backend/src/main/resources/application.properties):
+Copia el archivo de ejemplo y rellena tus credenciales:
+
+```bash
+cp backend/.env.example backend/.env
+```
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/notes_db
-spring.datasource.username=tu_usuario
-spring.datasource.password=tu_contraseña
+# backend/.env
+DB_URL=jdbc:mysql://localhost:3306/notes_db
+DB_USERNAME=tu_usuario
+DB_PASSWORD=tu_contraseña
+JWT_SECRET=genera_un_secreto_base64_de_256_bits
+JWT_EXPIRATION=86400000
 ```
+
+> El archivo `.env` es ignorado por git. Nunca lo subas al repositorio.
 
 Arranca el servidor:
 
 ```bash
 cd backend
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
-La API queda disponible en `http://localhost:8080/api/notes`.
+La API queda disponible en `http://localhost:8080`.
 
 ### 3. Frontend
-
-Instala las dependencias y levanta el servidor de desarrollo:
 
 ```bash
 cd frontend
 npm install
-ng serve -o
+node_modules/.bin/ng serve -o
 ```
 
 La aplicación queda disponible en `http://localhost:4200`.
 
-> El frontend consume la API del backend en `http://localhost:8080`. Asegúrate de que el backend esté corriendo antes de iniciar el frontend.
-
-- [Live Demo](https://deveps.ddns.net/notes)
+> El frontend apunta al backend en `http://localhost:8080`. Asegúrate de que el backend esté corriendo antes de iniciar el frontend.
 
 ---
 
@@ -124,7 +190,7 @@ La aplicación queda disponible en `http://localhost:4200`.
 - GitHub: [github.com/devepsdev](https://github.com/devepsdev)
 - Portfolio: [deveps.ddns.net](https://deveps.ddns.net)
 - Email: devepsdev@gmail.com
-- LinkedIn: [www.linkedin.com/in/enrique-perez-sanchez](https://www.linkedin.com/in/enrique-perez-sanchez/)
+- LinkedIn: [linkedin.com/in/enrique-perez-sanchez](https://www.linkedin.com/in/enrique-perez-sanchez/)
 
 ---
 

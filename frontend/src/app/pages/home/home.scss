@@ -1,124 +1,253 @@
-/* Estilos personalizados para el home */
+// Hero
+.hero-section {
+  padding: 5rem 1rem 4rem;
+  text-align: center;
+}
 
-/* Títulos */
-h1 {
+.hero-inner {
+  max-width: 720px;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  background: rgba(56, 189, 248, 0.13);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  color: #7dd3fc;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: white;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.5px;
+}
+
+.accent-text {
+  background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-size: 1.08rem;
+  color: rgba(255, 255, 255, 0.58);
+  line-height: 1.75;
+  margin-bottom: 2.5rem;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-hero-primary {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+
+  &:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(56, 189, 248, 0.35);
+    color: white;
+  }
+}
+
+.btn-hero-secondary {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  padding: 0.8rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    color: white;
+  }
+}
+
+// Section labels
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #7dd3fc;
+  display: block;
+}
+
+.section-title {
+  font-size: 1.9rem;
   font-weight: 700;
   color: white;
-  font-size: 2.5rem;
+  margin-bottom: 0;
 }
 
-h2 {
+// Feature cards
+.feature-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.75rem;
+  height: 100%;
+  transition: transform 0.22s, background 0.22s, border-color 0.22s;
+
+  &:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.09);
+    border-color: rgba(56, 189, 248, 0.22);
+  }
+
+  .feature-icon-wrap {
+    font-size: 1.8rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    background: rgba(56, 189, 248, 0.1);
+    border-radius: 14px;
+    margin-bottom: 1rem;
+  }
+
+  h5 {
+    font-size: 0.97rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.55rem;
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.52);
+    line-height: 1.65;
+    margin: 0;
+  }
+}
+
+// Tech section
+.tech-group-label {
+  font-size: 0.72rem;
   font-weight: 600;
-  color: white;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 0.8rem;
 }
 
-/* Párrafos */
-p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: white;
+.tech-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
 }
 
-/* Secciones */
-section {
-  margin-bottom: 3rem;
-  color: white;
+.tech-pill {
+  padding: 0.28rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 500;
+
+  &.backend {
+    background: rgba(56, 189, 248, 0.11);
+    border: 1px solid rgba(56, 189, 248, 0.22);
+    color: #7dd3fc;
+  }
+
+  &.frontend {
+    background: rgba(129, 140, 248, 0.11);
+    border: 1px solid rgba(129, 140, 248, 0.22);
+    color: #a5b4fc;
+  }
 }
 
-/* Contenedor de la demostración */
-.demo-container {
-  max-width: 800px;
-  width: 100%;
-}
+// Architecture cards
+.arch-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  padding: 1.5rem;
+  height: 100%;
 
-/* Imagen del gif */
-.demo-image {
-  border: 3px solid #e0e0e0;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 100%;
-  height: auto;
+  .arch-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 0.7rem;
+  }
 
-  // Solo aplicar hover en dispositivos que no sean táctiles
-  @media (hover: hover) {
-    &:hover {
-      transform: scale(1.02);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  h6 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.75rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.5);
+      padding: 0.22rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &::before {
+        content: '→';
+        color: rgba(56, 189, 248, 0.45);
+        font-size: 0.72rem;
+        flex-shrink: 0;
+      }
     }
   }
 }
 
-/* Listado de tecnologías */
-ul li {
-  font-size: 1.05rem;
-  margin-bottom: 0.5rem;
+// CTA
+.cta-section {
+  padding: 2rem 0 0.5rem;
+
+  .cta-text {
+    color: rgba(255, 255, 255, 0.42);
+    margin-bottom: 1rem;
+    font-size: 0.88rem;
+  }
 }
 
-/* ===== MEDIA QUERIES PARA RESPONSIVE ===== */
-
-/* Tablets y pantallas medianas (hasta 768px) */
+// Responsive
 @media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  p {
-    font-size: 1rem;
-  }
-
-  ul li {
-    font-size: 0.95rem;
-  }
-
-  section {
-    margin-bottom: 2rem;
-  }
-
-  .demo-image {
-    border-width: 2px;
-  }
+  .hero-title { font-size: 2.3rem; }
+  .hero-subtitle { font-size: 1rem; }
+  .section-title { font-size: 1.55rem; }
 }
 
-/* Móviles (hasta 576px) */
 @media (max-width: 576px) {
-  h1 {
-    font-size: 1.75rem;
-    margin-bottom: 2rem !important;
-  }
-
-  h2 {
-    font-size: 1.25rem;
-  }
-
-  p {
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  .lead {
-    font-size: 1.1rem !important;
-  }
-
-  ul li {
-    font-size: 0.9rem;
-    margin-bottom: 0.75rem;
-  }
-
-  section {
-    margin-bottom: 1.5rem;
-  }
-
-  .demo-image {
-    border-width: 2px;
-    border-radius: 0.5rem !important;
-  }
-
-  // Ajustar padding del container en móviles
-  .container {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
+  .hero-section { padding: 3rem 1rem 2.5rem; }
+  .hero-title { font-size: 1.9rem; letter-spacing: -0.3px; }
 }

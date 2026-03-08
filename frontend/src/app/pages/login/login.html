@@ -1,0 +1,56 @@
+<section class="auth-page">
+  <div class="auth-card bg">
+
+    <div class="auth-logo">
+      <span>📝</span>
+      <span class="auth-logo-name">Notesfy</span>
+    </div>
+
+    <h2 class="auth-title">Bienvenido de vuelta</h2>
+    <p class="auth-sub">Inicia sesión para acceder a tus notas</p>
+
+    <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+      <div class="mb-3">
+        <label class="form-label">Usuario</label>
+        <input type="text" class="form-control" formControlName="username"
+               placeholder="Tu nombre de usuario"
+               [class.is-invalid]="username.invalid && username.touched">
+        @if (username.invalid && username.touched) {
+          @if (username.errors?.['required']) {
+            <div class="invalid-feedback">El usuario es obligatorio</div>
+          } @else if (username.errors?.['minlength']) {
+            <div class="invalid-feedback">Mínimo 3 caracteres</div>
+          }
+        }
+      </div>
+
+      <div class="mb-4">
+        <label class="form-label">Contraseña</label>
+        <input type="password" class="form-control" formControlName="password"
+               placeholder="Tu contraseña"
+               [class.is-invalid]="password.invalid && password.touched">
+        @if (password.invalid && password.touched) {
+          @if (password.errors?.['required']) {
+            <div class="invalid-feedback">La contraseña es obligatoria</div>
+          } @else if (password.errors?.['minlength']) {
+            <div class="invalid-feedback">Mínimo 6 caracteres</div>
+          }
+        }
+      </div>
+
+      @if (errorMessage) {
+        <div class="alert alert-danger py-2 mb-3">{{ errorMessage }}</div>
+      }
+
+      <button type="submit" class="btn btn-primary w-100 mb-4"
+              [disabled]="form.invalid || isLoading">
+        {{ isLoading ? 'Entrando...' : 'Iniciar sesión' }}
+      </button>
+
+      <p class="auth-footer">
+        ¿No tienes cuenta?
+        <a routerLink="/register">Regístrate gratis</a>
+      </p>
+    </form>
+  </div>
+</section>

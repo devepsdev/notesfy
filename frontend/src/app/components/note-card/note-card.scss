@@ -1,109 +1,111 @@
 .note-card {
-  width: 400px;
-  max-width: 100%;
-  background-color: lightyellow;
-  border: 3px solid #000022;
-  padding: 20px 30px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 14px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  color: white;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.22s, border-color 0.22s, background 0.22s;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba(56, 189, 248, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &.is-marked {
+    opacity: 0.48;
+    .note-title { text-decoration: line-through; }
+  }
+}
+
+.note-card-body {
+  padding: 1rem 1rem 0.6rem;
+  flex: 1;
+}
+
+.note-category-badge {
+  display: inline-block;
+  padding: 0.18rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+  margin-bottom: 0.5rem;
+}
+
+.note-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: white;
+  margin: 0 0 0.45rem;
+  line-height: 1.4;
+}
+
+.note-content {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.55;
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.note-card-footer {
+  padding: 0.55rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
   align-items: center;
-  gap: 10px;
-  transition: all 0.2s;
-  box-sizing: border-box;
+  justify-content: space-between;
+}
 
-  .card-title {
-    background-color: transparent;
-    border: none;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: black;
-    flex: 1;
-    outline: none;
-    min-width: 0;
-  }
+.note-date {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.3);
+}
 
-  [type="button"] {
+.note-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.mark-check {
+  input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    border-radius: 50% !important;
     cursor: pointer;
-    background: transparent;
-    border: none;
-    font-size: 1.5rem;
-    padding: 0;
-    flex-shrink: 0;
-    transition: transform 0.2s;
+    background-color: rgba(255,255,255,0.08) !important;
+    border-color: rgba(255,255,255,0.22) !important;
+    transition: all 0.2s;
 
-    &:hover {
-      transform: scale(1.2);
+    &:checked {
+      background-color: #38bdf8 !important;
+      border-color: #38bdf8 !important;
     }
-  }
 
-  [type="checkbox"] {
-    transform: scale(2) translateX(-2px);
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-}
-.note-card:hover {
-  border: 3px solid black;
-  box-shadow: 0 0 10px;
-}
-.note-card:has(input:checked) {
-  border: 3px solid lightgray;
-  background-color: lightgray;
-
-  .card-title {
-    font-weight: 100;
+    &:focus { box-shadow: 0 0 0 3px rgba(56,189,248,0.15) !important; }
   }
 }
 
-/* ===== MEDIA QUERIES PARA RESPONSIVE ===== */
+.delete-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  padding: 0.22rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s, background 0.2s;
 
-/* Tablets y pantallas medianas (hasta 768px) */
-@media (max-width: 768px) {
-  .note-card {
-    width: 100%;
-    padding: 15px 20px;
-    gap: 8px;
-
-    .card-title {
-      font-size: 1.1rem;
-    }
-
-    [type="button"] {
-      font-size: 1.3rem;
-    }
-
-    [type="checkbox"] {
-      transform: scale(1.8) translateX(-2px);
-    }
-  }
-}
-
-/* Móviles (hasta 576px) */
-@media (max-width: 576px) {
-  .note-card {
-    width: 100%;
-    padding: 12px 15px;
-    border-width: 2px;
-    gap: 6px;
-
-    .card-title {
-      font-size: 1rem;
-    }
-
-    [type="button"] {
-      font-size: 1.2rem;
-    }
-
-    [type="checkbox"] {
-      transform: scale(1.5) translateX(-2px);
-    }
-  }
-
-  .note-card:hover {
-    border-width: 2px;
-  }
-
-  .note-card:has(input:checked) {
-    border-width: 2px;
+  &:hover {
+    color: #f87171;
+    background: rgba(248, 113, 113, 0.1);
   }
 }
