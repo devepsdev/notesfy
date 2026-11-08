@@ -188,7 +188,6 @@ La aplicación queda disponible en `http://localhost:4200`.
 **DevEps** - Desarrollador Full Stack
 
 - GitHub: [github.com/devepsdev](https://github.com/devepsdev)
-- Portfolio: [deveps.ddns.net](https://deveps.ddns.net)
 - Email: devepsdev@gmail.com
 - LinkedIn: [linkedin.com/in/enrique-perez-sanchez](https://www.linkedin.com/in/enrique-perez-sanchez/)
 
